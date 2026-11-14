@@ -47,9 +47,24 @@ options rtw88_pci disable_aspm=1
 
 Save & exit (Ctrl + X).
 
+#### Note
+disable_lps may not be an option, you may need to use disable_lps_deep.
+To find out which one you have, run:
+```bash
+cat /sys/module/rtw88_core/parameters/disable_lps
+```
+If it is an option, it will return Y/N depending on its status. Otherwise it will print: No such file or directory
+
 ### 2) Rebuild initramfs
+
+#### On Arch
 ```bash
 sudo dracut --force
+
+```
+#### On Ubuntu / Debian
+```bash
+sudo update-initramfs -u -k all
 ```
 This ensures the new driver parameters apply at boot.
 ### 3) Reboot
